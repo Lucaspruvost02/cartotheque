@@ -1,6 +1,6 @@
-/* Cartothèque — service worker 3b721ebdf4 */
-const CACHE='cartotheque-3b721ebdf4';
-const CORE=['./','./index.html','./data.js','./app.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
+/* Cartothèque — service worker 83e111b218 */
+const CACHE='cartotheque-83e111b218';
+const CORE=['./','./index.html','./data.js','./photos.js','./app.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('install',e=>{ e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())); });
 self.addEventListener('activate',e=>{ e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())); });
 self.addEventListener('fetch',e=>{

@@ -30,6 +30,8 @@ function shade(hex,amt){ const n=parseInt(hex.slice(1),16); let r=n>>16,g=n>>8&2
   return '#'+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1); }
 const lum = hex=>{ const n=parseInt(hex.slice(1),16); return (0.299*(n>>16)+0.587*(n>>8&255)+0.114*(n&255))/255; };
 
+if(typeof PHOTOS!=='undefined') DOMAINS.forEach(d=>d.coll.forEach(c=>{ const p=PHOTOS[c.id]; if(p){ c.img=p.img; c.credit=p.credit; c.src=p.src; } }));
+
 /* ============================ ÉTAT ============================ */
 const KEY='cartotheque.v1';
 const DEF = ()=>({xp:0, coins:150, packs:2, streak:0, best:0, lastGoal:null, hist:[], freezes:0, goal:50, sound:true, theme:'auto',
@@ -941,7 +943,7 @@ function showCard(id){ const c=allColl().find(x=>x.id===id); if(!c) return;
     ${c.st?`<div class="kv"><div><small>NOTE</small><b class="num">${c.ovr}</b></div>${c.dom.stl.map((l,i)=>`<div><small>${l}</small><b class="num">${c.st[i]}</b></div>`).join('')}</div>`:''}
     <p style="margin:0;font-weight:600;font-size:15px;text-align:center">${esc(c.f)}</p>
     ${c.news?`<div class="card"><div class="news" style="border-top:0"><time>${RES_DATE.split(' ').slice(0,2).join(' ')}</time><p>${esc(c.news)}</p></div></div>`:''}
-    ${c.credit?`<p class="xs faint" style="margin:0;text-align:center">Photo : ${esc(c.credit)}</p>`:''}
+    ${c.credit?`<p class="xs faint" style="margin:0;text-align:center">Photo : ${esc(c.credit)}${c.src?` · <a href="${esc(c.src)}" target="_blank" rel="noopener" style="color:inherit">source</a>`:''}</p>`:''}
     ${c.ovr?`<p class="xs faint" style="margin:0;text-align:center">${c.img?'Notes':'Illustration et notes'} créées pour le jeu, pas des statistiques officielles.</p>`:''}
     <button class="btn line wide" data-mclose>Fermer</button>`);
 }
